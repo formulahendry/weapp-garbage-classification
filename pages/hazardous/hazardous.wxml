@@ -1,0 +1,2 @@
+<!--pages/hazardous/hazardous.wxml-->
+<image style="width: 100%;"mode="widthFix" src="../../images/hazardous.jpg"></image>

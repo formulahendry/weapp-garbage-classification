@@ -1,0 +1,2 @@
+<!--pages/household/household.wxml-->
+<image style="width: 100%;"mode="widthFix" src="../../images/household.jpg"></image>

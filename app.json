@@ -1,12 +1,34 @@
 {
-  "pages":[
-    "pages/index/index",
-    "pages/logs/logs"
+  "pages": [
+    "pages/recoverable/recoverable",
+    "pages/hazardous/hazardous",
+    "pages/household/household",
+    "pages/residual/residual"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTitleText": "垃圾分类",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/recoverable/recoverable",
+        "text": "可回收物"
+      },
+      {
+        "pagePath": "pages/hazardous/hazardous",
+        "text": "有害垃圾"
+      },
+      {
+        "pagePath": "pages/household/household",
+        "text": "湿垃圾"
+      },
+      {
+        "pagePath": "pages/residual/residual",
+        "text": "干垃圾"
+      }
+    ]
   }
 }
