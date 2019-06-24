@@ -1,2 +1,3 @@
 <!--pages/household/household.wxml-->
+<search-form></search-form>
 <image style="width: 100%;"mode="widthFix" src="../../images/household.jpg"></image>

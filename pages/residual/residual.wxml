@@ -1,2 +1,3 @@
 <!--pages/residual/residual.wxml-->
+<search-form></search-form>
 <image style="width: 100%;"mode="widthFix" src="../../images/residual.jpg"></image>
