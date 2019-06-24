@@ -1,0 +1,8 @@
+/* pages/search/search.wxss */
+@import "../../wxSearchView/wxSearchView.wxss";
+
+.no-result {
+    padding: 30rpx;
+    text-align: center;
+    font-size: 18px;
+}

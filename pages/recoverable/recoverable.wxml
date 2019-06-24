@@ -1,2 +1,3 @@
 <!--pages/recoverable/recoverable.wxml-->
+<search-form></search-form>
 <image style="width: 100%;"mode="widthFix" src="../../images/recoverable.jpg"></image>

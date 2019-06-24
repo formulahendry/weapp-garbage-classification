@@ -1,0 +1,5 @@
+<!--pages/search/search.wxml-->
+<include src="../../wxSearchView/wxSearchView.wxml" />
+<view class='no-result' wx:if="{{noResult}}">
+    抱歉，未查询到结果，我们将尽快完善
+</view>

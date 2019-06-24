@@ -1,0 +1,9 @@
+<!--components/search-form/search-form.wxml-->
+<view class="weui-search-bar">
+  <view class="weui-search-bar__form">
+    <view class="weui-search-bar__box">
+      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+      <input type="text" class="weui-search-bar__input" disabled='true' placeholder="垃圾分类查询" bindtap="wxSearchTab"/>
+    </view>
+  </view>
+</view>

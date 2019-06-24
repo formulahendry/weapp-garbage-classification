@@ -3,7 +3,8 @@
     "pages/recoverable/recoverable",
     "pages/hazardous/hazardous",
     "pages/household/household",
-    "pages/residual/residual"
+    "pages/residual/residual",
+    "pages/search/search"
   ],
   "window": {
     "backgroundTextStyle": "light",
