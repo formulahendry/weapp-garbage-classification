@@ -1,3 +1,4 @@
 <!--pages/household/household.wxml-->
 <search-form></search-form>
+<ad unit-id="adunit-12defb3741dc5812"></ad>
 <image style="width: 100%;"mode="widthFix" src="../../images/household.jpg"></image>
