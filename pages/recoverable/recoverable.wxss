@@ -1,1 +1,5 @@
 /* pages/recoverable/recoverable.wxss */
+.result {
+  text-align: center;
+  margin-top: 30rpx;
+}

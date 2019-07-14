@@ -12,7 +12,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.ctx = wx.createCameraContext();
   },
 
   /**
@@ -62,5 +62,16 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  takePhoto: function () {
+    this.ctx.takePhoto({
+      quality: 'high',
+      success: (res) => {
+        this.setData({
+          src: res.tempImagePath
+        })
+      }
+    })
   }
 })

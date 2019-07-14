@@ -1,3 +1,6 @@
 <!--pages/recoverable/recoverable.wxml-->
 <search-form></search-form>
-<image style="width: 100%;"mode="widthFix" src="../../images/recoverable.jpg"></image>
+<camera device-position="back" flash="off" binderror="error" style="width: 100%; height: 300px;"></camera>
+<button type="primary" bindtap="takePhoto">养猪吧！</button>
+<view class='result'>笔记本：可回收垃圾</view>
+<image mode="widthFix" src="{{src}}"></image>
