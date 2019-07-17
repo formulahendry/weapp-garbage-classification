@@ -15,5 +15,10 @@ Page({
         })
       }
     })
+  },
+  continuePhoto: function () {
+    this.setData({
+      src: null
+    })
   }
 })
