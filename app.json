@@ -1,9 +1,8 @@
 {
   "pages": [
-    "pages/recoverable/recoverable",
-    "pages/hazardous/hazardous",
-    "pages/household/household",
-    "pages/residual/residual",
+    "pages/photo/photo",
+    "pages/voice/voice",
+    "pages/setting/setting",
     "pages/search/search"
   ],
   "window": {
@@ -15,20 +14,16 @@
   "tabBar": {
     "list": [
       {
-        "pagePath": "pages/recoverable/recoverable",
-        "text": "可回收物"
+        "pagePath": "pages/photo/photo",
+        "text": "拍照识别"
       },
       {
-        "pagePath": "pages/hazardous/hazardous",
-        "text": "有害垃圾"
+        "pagePath": "pages/voice/voice",
+        "text": "语音识别"
       },
       {
-        "pagePath": "pages/household/household",
-        "text": "湿垃圾"
-      },
-      {
-        "pagePath": "pages/residual/residual",
-        "text": "干垃圾"
+        "pagePath": "pages/setting/setting",
+        "text": "设置"
       }
     ]
   },
