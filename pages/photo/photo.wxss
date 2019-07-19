@@ -3,3 +3,9 @@
   text-align: center;
   margin-top: 30rpx;
 }
+.canvas {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}

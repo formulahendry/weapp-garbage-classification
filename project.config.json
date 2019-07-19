@@ -12,7 +12,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.6.5",
-	"appid": "wx7dd62a6f73366358",
+	"appid": "wx60c82d7f88e7fb5b",
 	"projectname": "weapp-garbage-classification",
 	"debugOptions": {
 		"hidedInDevtools": []
