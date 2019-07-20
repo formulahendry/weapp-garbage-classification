@@ -1,7 +1,10 @@
 <!--pages/recoverable/recoverable.wxml-->
 <search-form></search-form>
-<image wx:if="{{src}}" mode="widthFix" src="{{src}}"></image>
+<image wx:if="{{src}}" mode="widthFix" src="{{src}}" bindload='display' hidden='true'></image>
+<!-- <image wx:if="{{src}}" mode="widthFix" src="{{src}}" hidden='true'></image> -->
 <camera wx:else device-position="back" flash="off" binderror="error" style="width: 100%; height: 300px;"></camera>
+<canvas wx:if="{{isShowImage}}" canvas-id="imageCanvas" class="imageCanvas" style="width:{{imgW}}rpx;height:{{imgH}}rpx;margin:0 auto;zoom:{imgW > 750 ? 750 / imgW : 1}}"></canvas>
+<!-- <canvas canvas-id="myCanvas" class="myCanvas" style="width:{{imgW}}rpx;height:{{imgH}}rpx;margin:0 auto;zoom:{imgW > 750 ? 750 / imgW : 1}}"></canvas> -->
 <button wx:if="{{src}}" type="primary" bindtap="continuePhoto">继续拍照</button>
 <button wx:else type="primary" bindtap="takePhoto">拍照识别</button>
 <view wx:if="{{src}}" class='result'>笔记本：可回收垃圾</view>
