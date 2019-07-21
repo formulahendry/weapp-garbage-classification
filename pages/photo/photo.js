@@ -6,6 +6,7 @@ const DEFAULT_DATA = {
   imgH: '',
   byclear: 1,
   ctx: null,
+  items: [],
 };
 Page({
   onShareAppMessage: function () { },
@@ -129,6 +130,7 @@ function upload(page, path) {
 
 function renderCognition(page, objects) {
   let hasResult = false;
+  const items = [];
   
   const ctx = page.data.ctx;
   ctx.setLineWidth(6);
@@ -141,8 +143,15 @@ function renderCognition(page, objects) {
     const rectangle = object.rectangle;
     ctx.strokeRect(rectangle.x, rectangle.y, rectangle.w, rectangle.h);
     hasResult = true;
+    items.push({
+      object: object.object,
+      classification: object.classification,
+    })
   }
   if (hasResult) {
+    page.setData({
+      items: items,
+    });
     ctx.draw(true /*reserveLastDraw*/);
   }
   return hasResult;

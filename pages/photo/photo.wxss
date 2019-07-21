@@ -1,8 +1,4 @@
 /* pages/recoverable/recoverable.wxss */
-.result {
-  text-align: center;
-  margin-top: 30rpx;
-}
 .canvas {
   display: flex;
   justify-content: center;
