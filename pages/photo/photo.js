@@ -7,6 +7,7 @@ Page({
     imgH: '',
     byclear: 1
   },
+  onShareAppMessage: function () { },
   onLoad: function (options) {
     this.ctx = wx.createCameraContext();
     // var that = this
