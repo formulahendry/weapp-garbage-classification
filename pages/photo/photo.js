@@ -23,6 +23,7 @@ Page({
     // })
   },
   takePhoto: function () {
+    var that = this;
     this.ctx.takePhoto({
       quality: 'high',
       success: (res) => {
@@ -30,6 +31,7 @@ Page({
           src: res.tempImagePath,
           isShowImage: true
         })
+        upload(that, res.tempImagePath);
       }
     })
   },
@@ -91,3 +93,44 @@ Page({
     ctx.draw()
   },
 })
+
+var POST_URL = 'https://garbageclassification.eastasia.cloudapp.azure.com/post/api';
+function upload(page, path) {
+  wx.showLoading({
+    title: '加载中',
+    mask: true,
+  });
+  var fileManager = wx.getFileSystemManager();
+  var image = fileManager.readFileSync(path, 'base64');
+  wx.request({
+    url: POST_URL,
+    method: 'POST',
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    data: { image },
+    success: function (res) {
+      console.log(res);
+      if (res.statusCode != 200) {
+        handleException(res);
+        return;
+      }
+      // handle success
+    },
+    fail: function (err) {
+      handleException(undefined, err);
+      return;
+    },
+    complete: function () {
+      wx.hideLoading();
+    }
+  });
+}
+
+function handleException(res, err) {
+  wx.showModal({
+    title: '提示',
+    content: '上传失败，请稍后再试',
+    showCancel: false
+  });
+}
