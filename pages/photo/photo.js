@@ -91,7 +91,7 @@ Page({
   },
 })
 
-var POST_URL = 'https://garbageclassification.eastasia.cloudapp.azure.com/post/api';
+var POST_URL = 'https://wxapi.hotapp.cn/proxy/?appkey=hotapp688885631&url=https://garbageclassification.eastasia.cloudapp.azure.com/post/api';
 function upload(page, path) {
   wx.showLoading({
     title: '识别中',
@@ -149,9 +149,13 @@ function renderCognition(page, objects) {
 }
 
 function handleException(res, err) {
+  let content = '识别失败，请稍后再试';
+  if (err) {
+    content = err.message;
+  }
   wx.showModal({
     title: '提示',
-    content: '上传失败，请稍后再试',
+    content: content,
     showCancel: false
   });
 }
