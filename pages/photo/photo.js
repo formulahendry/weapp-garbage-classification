@@ -114,6 +114,7 @@ function upload(page, path) {
         return;
       }
       const isRecognized = renderCognition(page, res.data.detection_result.objects);
+      console.log(res)
       if (!isRecognized) {
         handleException(undefined, new Error('No claasification result.'));
       }
@@ -136,12 +137,34 @@ function renderCognition(page, objects) {
   ctx.setLineWidth(6);
   ctx.setStrokeStyle('white');
 
+  var index = 0;
   for (const object of objects) {
+    index++;
     if (!object.classification) {
+      index--;
       continue;
     }
+    console.log(index);
     const rectangle = object.rectangle;
     ctx.strokeRect(rectangle.x, rectangle.y, rectangle.w, rectangle.h);
+    
+    if (object.classification == "湿垃圾") {
+      ctx.setFillStyle('brown');
+    } else if (object.classification == "干垃圾") {
+      ctx.setFillStyle('black');
+    } else if (object.classification == "有害垃圾") {
+      ctx.setFillStyle('orange');
+    } else { // 可回收垃圾
+      ctx.setFillStyle('blue');
+    }
+
+    ctx.fillRect(rectangle.x + rectangle.w + 6, rectangle.y, 35, 35);
+
+    ctx.setFontSize(26)
+    ctx.font = 'Consolas bolder'
+    ctx.setFillStyle('white');
+    ctx.fillText((index).toString(), rectangle.x + rectangle.w + 15, rectangle.y + 27.5);
+
     hasResult = true;
     items.push({
       object: object.object,
