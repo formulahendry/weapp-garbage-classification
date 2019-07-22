@@ -1,5 +1,4 @@
 // pages/recoverable/recoverable.js
-var order = ['red', 'yellow', 'blue', 'green', 'red'];
 const DEFAULT_DATA = {
   src: null,
   isShowImage: false,
@@ -56,34 +55,6 @@ Page({
         });
       },
     })
-  },
-  tap: function (e) {
-    for (var i = 0; i < order.length; ++i) {
-      console.log(this.data.toView)
-      if (order[i] === this.data.toView) {
-        this.setData({
-          toView: order[i + 1]
-        })
-        break
-      }
-    }
-  },
-  tapMove: function (e) {
-    this.setData({
-      scrollTop: this.data.scrollTop + 10
-    })
-  },
-  //滚动条滚到顶部的时候触发
-  upper: function (e) {
-    console.log(e)
-  },
-  //滚动条滚到底部的时候触发
-  lower: function (e) {
-    console.log(e)
-  },
-  //滚动条滚动后触发
-  scroll: function (e) {
-    console.log(e)
   },
   display: function(e) {
     // 实际宽度 e.detail.width 高度 e.detail.height
