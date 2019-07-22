@@ -156,12 +156,16 @@ function renderCognition(page, objects) {
       ctx.setFillStyle('red');
     }
 
-    ctx.fillRect(rectangle.x + rectangle.w + 6, rectangle.y, 35, 35);
+    const width = 80;
+    const gap = 10;
+    ctx.fillRect(rectangle.x + rectangle.w + gap, rectangle.y, width, width);
 
-    ctx.setFontSize(26)
+    const fontSize = 70;
+    const gap2 = 20;
+    ctx.setFontSize(fontSize)
     ctx.font = 'Consolas bolder'
     ctx.setFillStyle('white');
-    ctx.fillText((index).toString(), rectangle.x + rectangle.w + 15, rectangle.y + 27.5);
+    ctx.fillText((index).toString(), rectangle.x + rectangle.w + gap + gap2, rectangle.y + width - (width) / 6);
 
     hasResult = true;
     items.push({
