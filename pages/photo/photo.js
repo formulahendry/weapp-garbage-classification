@@ -137,12 +137,16 @@ function renderCognition(page, objects) {
   ctx.setLineWidth(6);
   ctx.setStrokeStyle('white');
 
+  for (const object of objects) {
+    const rectangle = object.rectangle;
+    ctx.strokeRect(rectangle.x, rectangle.y, rectangle.w, rectangle.h);
+  }
+
   var index = 0;
   for (const object of objects) {
     index++;
-    console.log(index);
     const rectangle = object.rectangle;
-    ctx.strokeRect(rectangle.x, rectangle.y, rectangle.w, rectangle.h);
+    // ctx.strokeRect(rectangle.x, rectangle.y, rectangle.w, rectangle.h);
     
     if (object.classification == "湿垃圾") {
       ctx.setFillStyle('#653f34');
