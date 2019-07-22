@@ -2,7 +2,6 @@
 const DEFAULT_DATA = {
   src: null,
   isShowImage: false,
-  isShowResult: false,
   imgW: '',
   imgH: '',
   byclear: 1,
