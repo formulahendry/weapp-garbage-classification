@@ -8,8 +8,6 @@ const DEFAULT_DATA = {
   byclear: 1,
   ctx: null,
   items: [],
-  toView: 'red',
-  scrollTop: 100,
 };
 Page({
   onShareAppMessage: function () { },
