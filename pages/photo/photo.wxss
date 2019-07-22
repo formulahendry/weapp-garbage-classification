@@ -5,3 +5,45 @@
   height: 100%;
   width: 100%;
 }
+
+.classification-container {
+  display: flex;
+}
+
+.classification {
+  border-radius: 5px;
+  margin-top: 5px;
+  padding: 10px;
+  color: white;
+  font-size: 15px;
+}
+
+.classification-index {
+  margin-right: 5px;
+  width: 1rem;
+  text-align: center;
+}
+
+.classification-type {
+  width: 100%;
+}
+
+.bc-brown {
+  background: #653f34;
+}
+
+.bc-red {
+  background: #d83723;
+}
+
+.bc-blue {
+  background: #00457c;
+}
+
+.bc-purple {
+  background: #993399;
+}
+
+.bc-black {
+  background: #2a2925
+}
