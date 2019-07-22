@@ -140,10 +140,6 @@ function renderCognition(page, objects) {
   var index = 0;
   for (const object of objects) {
     index++;
-    if (!object.classification) {
-      index--;
-      continue;
-    }
     console.log(index);
     const rectangle = object.rectangle;
     ctx.strokeRect(rectangle.x, rectangle.y, rectangle.w, rectangle.h);
@@ -154,8 +150,10 @@ function renderCognition(page, objects) {
       ctx.setFillStyle('black');
     } else if (object.classification == "有害垃圾") {
       ctx.setFillStyle('orange');
-    } else { // 可回收垃圾
+    } else if (object.classification == "可回收垃圾") {
       ctx.setFillStyle('blue');
+    } else {
+      ctx.setFillStyle('red');
     }
 
     ctx.fillRect(rectangle.x + rectangle.w + 6, rectangle.y, 35, 35);
@@ -168,7 +166,7 @@ function renderCognition(page, objects) {
     hasResult = true;
     items.push({
       object: object.object,
-      classification: object.classification,
+      classification: object.classification ? object.classification : "未能分类",
     })
   }
   if (hasResult) {
