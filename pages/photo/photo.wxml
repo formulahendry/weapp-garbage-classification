@@ -7,19 +7,25 @@
 <!-- <canvas canvas-id="myCanvas" class="myCanvas" style="width:{{imgW}}rpx;height:{{imgH}}rpx;margin:0 auto;zoom:{imgW > 750 ? 750 / imgW : 1}}"></canvas> -->
 <button wx:if="{{src}}" type="primary" bindtap="continuePhoto">继续拍照</button>
 <button wx:else type="primary" bindtap="takePhoto">拍照识别</button>
-<!-- <view wx:if="{{src}}" class='result'>笔记本：可回收垃圾</view> -->
 <view wx:for="{{items}}">
-  [{{index + 1}}] {{item.object}}: {{item.classification}}
+  <view wx:if="{{item.classification == \"干垃圾\"}}" class="classification-container">
+    <view class="classification classification-index bc-black">{{index + 1}}</view>
+    <view class="classification classification-type bc-black">{{item.object}}: {{item.classification}}</view>
+  </view>
+  <view wx:elif="{{item.classification == \"湿垃圾\"}}" class="classification-container">
+    <view class="classification classification-index bc-brown">{{index + 1}}</view>
+    <view class="classification classification-type bc-brown">{{item.object}}: {{item.classification}}</view>
+  </view>
+  <view wx:elif="{{item.classification == \"可回收垃圾\"}}" class="classification-container">
+    <view class="classification classification-index bc-blue">{{index + 1}}</view>
+    <view class="classification classification-type bc-blue">{{item.object}}: {{item.classification}}</view>
+  </view>
+  <view wx:elif="{{item.classification == \"有害垃圾\"}}" class="classification-container">
+    <view class="classification classification-index bc-red">{{index + 1}}</view>
+    <view class="classification classification-type bc-red">{{item.object}}: {{item.classification}}</view>
+  </view>
+  <view wx:else class="classification-container">
+    <view class="classification classification-index bc-purple">{{index + 1}}</view>
+    <view class="classification classification-type bc-purple">{{item.object}}: {{item.classification}}</view>
+  </view>
 </view>
-
-<!-- <view> -->
-<!-- <scroll-view scroll-y="true" style="height: 100px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-    <view wx:for="{{items}}">
-    [{{index+1}}] {{item.object}}: {{item.classification}}
-    </view>
-  </scroll-view> -->
-  <!-- <view class="btn-area">
-    <button size="mini" bindtap="tap">click me to scroll into view </button>
-    <button size="mini" bindtap="tapMove">click me to scroll</button>
-  </view> -->
-<!-- </view> -->

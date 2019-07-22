@@ -145,15 +145,15 @@ function renderCognition(page, objects) {
     ctx.strokeRect(rectangle.x, rectangle.y, rectangle.w, rectangle.h);
     
     if (object.classification == "湿垃圾") {
-      ctx.setFillStyle('brown');
+      ctx.setFillStyle('#653f34');
     } else if (object.classification == "干垃圾") {
-      ctx.setFillStyle('black');
+      ctx.setFillStyle('#2a2925');
     } else if (object.classification == "有害垃圾") {
-      ctx.setFillStyle('orange');
+      ctx.setFillStyle('#d83723');
     } else if (object.classification == "可回收垃圾") {
-      ctx.setFillStyle('blue');
+      ctx.setFillStyle('#00457c');
     } else {
-      ctx.setFillStyle('red');
+      ctx.setFillStyle('#993399');
     }
 
     const width = 80;
