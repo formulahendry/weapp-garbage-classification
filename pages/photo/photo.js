@@ -1,12 +1,16 @@
 // pages/recoverable/recoverable.js
+var order = ['red', 'yellow', 'blue', 'green', 'red'];
 const DEFAULT_DATA = {
   src: null,
   isShowImage: false,
+  isShowResult: false,
   imgW: '',
   imgH: '',
   byclear: 1,
   ctx: null,
   items: [],
+  toView: 'red',
+  scrollTop: 100,
 };
 Page({
   onShareAppMessage: function () { },
@@ -52,6 +56,34 @@ Page({
         });
       },
     })
+  },
+  tap: function (e) {
+    for (var i = 0; i < order.length; ++i) {
+      console.log(this.data.toView)
+      if (order[i] === this.data.toView) {
+        this.setData({
+          toView: order[i + 1]
+        })
+        break
+      }
+    }
+  },
+  tapMove: function (e) {
+    this.setData({
+      scrollTop: this.data.scrollTop + 10
+    })
+  },
+  //滚动条滚到顶部的时候触发
+  upper: function (e) {
+    console.log(e)
+  },
+  //滚动条滚到底部的时候触发
+  lower: function (e) {
+    console.log(e)
+  },
+  //滚动条滚动后触发
+  scroll: function (e) {
+    console.log(e)
   },
   display: function(e) {
     // 实际宽度 e.detail.width 高度 e.detail.height
@@ -114,6 +146,7 @@ function upload(page, path) {
         return;
       }
       const isRecognized = renderCognition(page, res.data.detection_result.objects);
+      console.log(res)
       if (!isRecognized) {
         handleException(undefined, new Error('No claasification result.'));
       }
@@ -136,12 +169,34 @@ function renderCognition(page, objects) {
   ctx.setLineWidth(6);
   ctx.setStrokeStyle('white');
 
+  var index = 0;
   for (const object of objects) {
+    index++;
     if (!object.classification) {
+      index--;
       continue;
     }
+    console.log(index);
     const rectangle = object.rectangle;
     ctx.strokeRect(rectangle.x, rectangle.y, rectangle.w, rectangle.h);
+    
+    if (object.classification == "湿垃圾") {
+      ctx.setFillStyle('brown');
+    } else if (object.classification == "干垃圾") {
+      ctx.setFillStyle('black');
+    } else if (object.classification == "有害垃圾") {
+      ctx.setFillStyle('orange');
+    } else { // 可回收垃圾
+      ctx.setFillStyle('blue');
+    }
+
+    ctx.fillRect(rectangle.x + rectangle.w + 6, rectangle.y, 35, 35);
+
+    ctx.setFontSize(26)
+    ctx.font = 'Consolas bolder'
+    ctx.setFillStyle('white');
+    ctx.fillText((index).toString(), rectangle.x + rectangle.w + 15, rectangle.y + 27.5);
+
     hasResult = true;
     items.push({
       object: object.object,
