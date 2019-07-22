@@ -1,12 +1,16 @@
 // pages/recoverable/recoverable.js
+const DEFAULT_DATA = {
+  src: null,
+  isShowImage: false,
+  imgW: '',
+  imgH: '',
+  byclear: 1,
+  ctx: null,
+  items: [],
+};
 Page({
-  data: {
-    src: null,
-    isShowImage: false,
-    imgW: '',
-    imgH: '',
-    byclear: 1
-  },
+  onShareAppMessage: function () { },
+  data: Object.assign({}, DEFAULT_DATA),
   onLoad: function (options) {
     this.ctx = wx.createCameraContext();
     // var that = this
@@ -23,71 +27,144 @@ Page({
     // })
   },
   takePhoto: function () {
+    var that = this;
     this.ctx.takePhoto({
       quality: 'high',
       success: (res) => {
-        this.setData({
+        this.setData(Object.assign(this.data, {
           src: res.tempImagePath,
           isShowImage: true
-        })
+        }));
+        upload(that, res.tempImagePath);
       }
     })
   },
   continuePhoto: function () {
-    this.setData({
-      src: null,
-      isShowImage: false
-    })
+    this.setData(Object.assign({}, DEFAULT_DATA));
   },
   onReady: function () {
-    var that = this
+    var that = this;
     wx.getSystemInfo({
       success: function (res) {
-        let byclear = res.screenWidth / 375
-        that.setData({
+        let byclear = res.screenWidth / 375;
+        Object.assign(that.data, {
           byclear
-        })
+        });
       },
     })
   },
   display: function(e) {
     // 实际宽度 e.detail.width 高度 e.detail.height
-    var whsrc = e.detail.height / e.detail.width
+    const whsrc = e.detail.height / e.detail.width;
     // 计算高宽，需要处理图片宽度小于屏幕宽度的时候 对应的canvas比例
-    let res = this.data.res
-    let byclear = this.data.byclear 
-    const ctx = wx.createCanvasContext('imageCanvas', this)
-    ctx.save()
-    if(e.detail.width > 375 * byclear) ctx.scale(375 * byclear / e.detail.width, 375 * byclear / e.detail.width)
-    ctx.drawImage(this.data.src, 0, 0, e.detail.width, e.detail.height)
-    this.setData({
+    const byclear = this.data.byclear;
+    const ctx = wx.createCanvasContext('imageCanvas', this);
+    ctx.save();
+    if (e.detail.width > 375 * byclear) ctx.scale(375 * byclear / e.detail.width, 375 * byclear / e.detail.width);
+    ctx.drawImage(this.data.src, 0, 0, e.detail.width, e.detail.height);
+    this.setData(Object.assign(this.data, {
       imgW: e.detail.width > 375 ? 750 : e.detail.width * 2 / byclear,
-      imgH: e.detail.width > 375 ? 750 * whsrc : e.detail.height * 2 / byclear
-    })
-    // this.setData({
-    //   imgW: e.detail.width * 2 / byclear,
-    //   imgH: e.detail.height * 2 / byclear
-    // })
-    ctx.setLineWidth(8);
-    ctx.setFontSize(80)
-    ctx.font = 'Arial bold'
+      imgH: e.detail.width > 375 ? 750 * whsrc : e.detail.height * 2 / byclear,
+      ctx,
+    }));
+
+    // ctx.setLineWidth(8);
+    // ctx.setFontSize(80)
+    // ctx.font = 'Arial bold'
     // ctx.setStrokeStyle('white')
     // ctx.strokeRect(166, 994, 389, 512)
     // ctx.fillText("①", 166, 994)
 
 
     // 框选物体
-    ctx.setStrokeStyle('white')
-    ctx.strokeRect(202, 180, 671, 584)
+    // ctx.setStrokeStyle('white')
+    // ctx.strokeRect(202, 180, 671, 584)
 
     // 标数字的底色方框
-    ctx.setFillStyle('brown')
-    ctx.fillRect(202 + 671 + 10, 180, 120, 120)
+    // ctx.setFillStyle('brown')
+    // ctx.fillRect(202 + 671 + 10, 180, 120, 120)
 
     // 数字
-    ctx.setFillStyle('white')
-    ctx.fillText("①", 202 + 671 + 10 + 20, 180 + 120 / 2 + 25)
+    // ctx.setFillStyle('white')
+    // ctx.fillText("①", 202 + 671 + 10 + 20, 180 + 120 / 2 + 25)
 
-    ctx.draw()
+    ctx.draw();
   },
 })
+
+var POST_URL = 'https://wxapi.hotapp.cn/proxy/?appkey=hotapp688885631&url=https://garbageclassification.eastasia.cloudapp.azure.com/post/api';
+function upload(page, path) {
+  wx.showLoading({
+    title: '识别中',
+    mask: true,
+  });
+  var fileManager = wx.getFileSystemManager();
+  var image = fileManager.readFileSync(path, 'base64');
+  wx.request({
+    url: POST_URL,
+    method: 'POST',
+    header: {
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    data: { image },
+    success: function (res) {
+      if (res.statusCode != 200 || !res.data ||
+          !res.data.detection_result || !res.data.detection_result.objects) {
+        handleException(res);
+        return;
+      }
+      const isRecognized = renderCognition(page, res.data.detection_result.objects);
+      if (!isRecognized) {
+        handleException(undefined, new Error('No claasification result.'));
+      }
+    },
+    fail: function (err) {
+      handleException(undefined, err);
+      return;
+    },
+    complete: function () {
+      wx.hideLoading();
+    }
+  });
+}
+
+function renderCognition(page, objects) {
+  let hasResult = false;
+  const items = [];
+  
+  const ctx = page.data.ctx;
+  ctx.setLineWidth(6);
+  ctx.setStrokeStyle('white');
+
+  for (const object of objects) {
+    if (!object.classification) {
+      continue;
+    }
+    const rectangle = object.rectangle;
+    ctx.strokeRect(rectangle.x, rectangle.y, rectangle.w, rectangle.h);
+    hasResult = true;
+    items.push({
+      object: object.object,
+      classification: object.classification,
+    })
+  }
+  if (hasResult) {
+    page.setData({
+      items: items,
+    });
+    ctx.draw(true /*reserveLastDraw*/);
+  }
+  return hasResult;
+}
+
+function handleException(res, err) {
+  let content = '识别失败，请稍后再试';
+  if (err) {
+    content = err.message;
+  }
+  wx.showModal({
+    title: '提示',
+    content: content,
+    showCancel: false
+  });
+}

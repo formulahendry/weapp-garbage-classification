@@ -7,4 +7,7 @@
 <!-- <canvas canvas-id="myCanvas" class="myCanvas" style="width:{{imgW}}rpx;height:{{imgH}}rpx;margin:0 auto;zoom:{imgW > 750 ? 750 / imgW : 1}}"></canvas> -->
 <button wx:if="{{src}}" type="primary" bindtap="continuePhoto">继续拍照</button>
 <button wx:else type="primary" bindtap="takePhoto">拍照识别</button>
-<view wx:if="{{src}}" class='result'>笔记本：可回收垃圾</view>
+<!-- <view wx:if="{{src}}" class='result'>笔记本：可回收垃圾</view> -->
+<view wx:for="{{items}}">
+  [{{index}}] {{item.object}}: {{item.classification}}
+</view>
