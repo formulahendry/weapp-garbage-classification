@@ -7,6 +7,7 @@ const DEFAULT_DATA = {
   byclear: 1,
   ctx: null,
   items: [],
+  hasNoneItems: false,
 };
 Page({
   onShareAppMessage: function () { },
@@ -183,6 +184,12 @@ function renderCognition(page, objects) {
     });
     ctx.draw(true /*reserveLastDraw*/);
   }
+  let hasNoneItem = handleNoneItemException(items);
+  if (hasNoneItem) {
+    page.setData({
+      hasNoneItems: true,
+    })
+  }
   return hasResult;
 }
 
@@ -196,4 +203,12 @@ function handleException(res, err) {
     content: content,
     showCancel: false
   });
+}
+
+function handleNoneItemException(items) {
+  if (items.length == 0) {
+    console.log("no item.")
+    return true;
+  }
+
 }
