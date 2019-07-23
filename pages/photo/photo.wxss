@@ -17,6 +17,17 @@
   background-repeat: no-repeat;
   background-position: center center;
   border: 2px solid black;
+  -webkit-transition:-webkit-transform .1s ease-in-out;
+  -moz-transition:-moz-transform .1s ease-in-out;
+  -o-transition:-o-transform .1s ease-in-out;
+  transition:transform .1s ease-in-out;
+}
+
+.camera-btn-hover {
+  -webkit-transform:scale(1.1);
+  -moz-transform:scale(1.1);
+  -o-transform:scale(1.1);
+  transform:scale(1.1);
 }
 
 button::after {
