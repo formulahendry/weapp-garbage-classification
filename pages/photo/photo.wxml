@@ -1,31 +1,33 @@
 <!--pages/recoverable/recoverable.wxml-->
 <search-form></search-form>
-<image wx:if="{{src}}" mode="widthFix" src="{{src}}" bindload='display' hidden='true'></image>
-<!-- <image wx:if="{{src}}" mode="widthFix" src="{{src}}" hidden='true'></image> -->
-<camera wx:else device-position="back" flash="off" binderror="error" style="width: 100%; height: 300px;"></camera>
-<canvas wx:if="{{isShowImage}}" canvas-id="imageCanvas" class="imageCanvas" style="width:{{imgW}}rpx;height:{{imgH}}rpx;margin:0 auto;zoom:{imgW > 750 ? 750 / imgW : 1}}"></canvas>
-<!-- <canvas canvas-id="myCanvas" class="myCanvas" style="width:{{imgW}}rpx;height:{{imgH}}rpx;margin:0 auto;zoom:{imgW > 750 ? 750 / imgW : 1}}"></canvas> -->
-<button wx:if="{{src}}" type="primary" bindtap="continuePhoto">继续拍照</button>
-<button wx:else type="primary" bindtap="takePhoto">拍照识别</button>
-<view wx:for="{{items}}">
-  <view wx:if="{{item.classification == \"干垃圾\"}}" class="classification-container">
-    <view class="classification classification-index bc-black">{{index + 1}}</view>
-    <view class="classification classification-type bc-black">{{item.object}}: {{item.classification}}</view>
-  </view>
-  <view wx:elif="{{item.classification == \"湿垃圾\"}}" class="classification-container">
-    <view class="classification classification-index bc-brown">{{index + 1}}</view>
-    <view class="classification classification-type bc-brown">{{item.object}}: {{item.classification}}</view>
-  </view>
-  <view wx:elif="{{item.classification == \"可回收垃圾\"}}" class="classification-container">
-    <view class="classification classification-index bc-blue">{{index + 1}}</view>
-    <view class="classification classification-type bc-blue">{{item.object}}: {{item.classification}}</view>
-  </view>
-  <view wx:elif="{{item.classification == \"有害垃圾\"}}" class="classification-container">
-    <view class="classification classification-index bc-red">{{index + 1}}</view>
-    <view class="classification classification-type bc-red">{{item.object}}: {{item.classification}}</view>
-  </view>
-  <view wx:else class="classification-container">
-    <view class="classification classification-index bc-purple">{{index + 1}}</view>
-    <view class="classification classification-type bc-purple">{{item.object}}: {{item.classification}}</view>
+<view style="padding: 5px">
+  <image wx:if="{{src}}" mode="widthFix" src="{{src}}" bindload='display' hidden='true'></image>
+  <!-- <image wx:if="{{src}}" mode="widthFix" src="{{src}}" hidden='true'></image> -->
+  <camera wx:else device-position="back" flash="off" binderror="error" style="width: 100%; height: 300px;"></camera>
+  <canvas wx:if="{{isShowImage}}" canvas-id="imageCanvas" class="imageCanvas" style="width:{{imgW}}rpx;height:{{imgH}}rpx;margin:0 auto;zoom:{imgW > 750 ? 750 / imgW : 1}}"></canvas>
+  <!-- <canvas canvas-id="myCanvas" class="myCanvas" style="width:{{imgW}}rpx;height:{{imgH}}rpx;margin:0 auto;zoom:{imgW > 750 ? 750 / imgW : 1}}"></canvas> -->
+  <button wx:if="{{src}}" type="primary" bindtap="continuePhoto" class="btn">继续拍照</button>
+  <button wx:else type="primary" bindtap="takePhoto" class="btn camera-btn" style="background-color: #ffffff; background-image:url(data:image/png;base64,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)"/>
+  <view wx:for="{{items}}">
+    <view wx:if="{{item.classification == \"干垃圾\"}}" class="classification-container">
+      <view class="classification classification-index bc-black">{{index + 1}}</view>
+      <view class="classification classification-type bc-black">{{item.object}}: {{item.classification}}</view>
+    </view>
+    <view wx:elif="{{item.classification == \"湿垃圾\"}}" class="classification-container">
+      <view class="classification classification-index bc-brown">{{index + 1}}</view>
+      <view class="classification classification-type bc-brown">{{item.object}}: {{item.classification}}</view>
+    </view>
+    <view wx:elif="{{item.classification == \"可回收垃圾\"}}" class="classification-container">
+      <view class="classification classification-index bc-blue">{{index + 1}}</view>
+      <view class="classification classification-type bc-blue">{{item.object}}: {{item.classification}}</view>
+    </view>
+    <view wx:elif="{{item.classification == \"有害垃圾\"}}" class="classification-container">
+      <view class="classification classification-index bc-red">{{index + 1}}</view>
+      <view class="classification classification-type bc-red">{{item.object}}: {{item.classification}}</view>
+    </view>
+    <view wx:else class="classification-container">
+      <view class="classification classification-index bc-purple">{{index + 1}}</view>
+      <view class="classification classification-type bc-purple">{{item.object}}: {{item.classification}}</view>
+    </view>
   </view>
 </view>

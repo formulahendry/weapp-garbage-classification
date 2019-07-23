@@ -6,6 +6,23 @@
   width: 100%;
 }
 
+.btn {
+  margin: 10px auto;
+}
+
+.camera-btn {
+  background-size: 80%;
+  width: 3rem;
+  height: 3rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 2px solid black;
+}
+
+button::after {
+  content: none;
+}
+
 .classification-container {
   display: flex;
 }
