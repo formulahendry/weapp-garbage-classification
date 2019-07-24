@@ -90,3 +90,8 @@
   height: 288rpx;
   margin-right: 8rpx;
 }
+
+.waste-image-show {
+  width: 100%;
+  height: 100%;
+}

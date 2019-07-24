@@ -8,6 +8,10 @@ const DEFAULT_DATA = {
   ctx: null,
   items: [],
   hasNoneItems: false,
+  clickHousehold: false,
+  clickResidual: false,
+  clickHazardous: false,
+  clickRecyclable: false,
 };
 Page({
   onShareAppMessage: function () { },
@@ -91,6 +95,35 @@ Page({
 
     ctx.draw();
   },
+
+  viewHousehold: function() {
+    this.setData({
+      clickHousehold: true,
+    });
+  },
+  viewResidual: function() {
+    this.setData({
+      clickResidual: true,
+    });
+  },
+  viewHazardous: function() {
+    this.setData({
+      clickHazardous: true,
+    });
+  },
+  viewRecyclable: function() {
+    this.setData({
+      clickRecyclable: true,
+    });
+  },
+  viewAll: function() {
+    this.setData({
+      clickHousehold: false,
+      clickResidual: false,
+      clickHazardous: false,
+      clickRecyclable: false,
+    })
+  }
 })
 
 var POST_URL = 'https://wxapi.hotapp.cn/proxy/?appkey=hotapp688885631&url=https://garbageclassification.eastasia.cloudapp.azure.com/post/api';
@@ -117,7 +150,14 @@ function upload(page, path) {
       const isRecognized = renderCognition(page, res.data.detection_result.objects);
       console.log(res)
       if (!isRecognized) {
-        handleException(undefined, new Error('No claasification result.'));
+        // handleException(undefined, new Error('No claasification result.'));
+        page.setData({
+          hasNoneItems: true,
+          clickHousehold: false,
+          clickResidual: false,
+          clickHazardous: false,
+          clickRecyclable: false,
+        })
       }
     },
     fail: function (err) {
@@ -184,12 +224,6 @@ function renderCognition(page, objects) {
     });
     ctx.draw(true /*reserveLastDraw*/);
   }
-  let hasNoneItem = handleNoneItemException(items);
-  if (hasNoneItem) {
-    page.setData({
-      hasNoneItems: true,
-    })
-  }
   return hasResult;
 }
 
@@ -203,12 +237,4 @@ function handleException(res, err) {
     content: content,
     showCancel: false
   });
-}
-
-function handleNoneItemException(items) {
-  if (items.length == 0) {
-    console.log("no item.")
-    return true;
-  }
-
 }
