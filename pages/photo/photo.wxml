@@ -3,7 +3,32 @@
 <image wx:if="{{src}}" mode="widthFix" src="{{src}}" bindload='display' hidden='true'></image>
 <!-- <image wx:if="{{src}}" mode="widthFix" src="{{src}}" hidden='true'></image> -->
 <camera wx:else device-position="back" flash="off" binderror="error" style="width: 100%; height: 300px;"></camera>
-<canvas wx:if="{{isShowImage}}" canvas-id="imageCanvas" class="imageCanvas" style="width:{{imgW}}rpx;height:{{imgH}}rpx;margin:0 auto;zoom:{imgW > 750 ? 750 / imgW : 1}}"></canvas>
+<view wx:if="{{hasNoneItems && !clickHousehold && !clickResidual && !clickHazardous && !clickRecyclable}}" style="width: 100%; height: 460px;">
+  <view class="svg"></view>
+  <view class="noneItemsMsg noneItemsMsg-msg bc-gray">对不起，暂时无法识别该垃圾。</view>
+  <view class="noneItemsMsg noneItemsMsg-msg bc-gray">点击图片查看更多分类信息。</view>
+  <view class="waste-list">
+    <view class="waste-list-info">
+      <image class="waste-list-photo" src="../../images/HouseholdWaste.png" bindtap="viewHousehold"></image>
+      <image class="waste-list-photo" src="../../images/ResidualWaste.png" bindtap="viewResidual"></image>
+      <image class="waste-list-photo" src="../../images/HazardousWaste.png" bindtap="viewHazardous"></image>
+      <image class="waste-list-photo" src="../../images/RecyclableWaste.png" bindtap="viewRecyclable"></image>
+    </view>
+  </view>
+</view>
+<view wx:elif="{{clickHousehold}}" style="width: 100%; height: 460px;">
+  <image class="waste-image-show" src="../../images/HouseholdWaste.png" bindtap="viewAll"></image>
+</view>
+<view wx:elif="{{clickResidual}}" style="width: 100%; height: 460px;">
+  <image class="waste-image-show" src="../../images/ResidualWaste.png" bindtap="viewAll"></image>
+</view>
+<view wx:elif="{{clickHazardous}}" style="width: 100%; height: 460px;">
+  <image class="waste-image-show" src="../../images/HazardousWaste.png" bindtap="viewAll"></image>
+</view>
+<view wx:elif="{{clickRecyclable}}" style="width: 100%; height: 460px;">
+  <image class="waste-image-show" src="../../images/RecyclableWaste.png" bindtap="viewAll"></image>
+</view>
+<canvas wx:if="{{isShowImage && !hasNoneItems}}" canvas-id="imageCanvas" class="imageCanvas" style="width:{{imgW}}rpx;height:{{imgH}}rpx;margin:0 auto;zoom:{imgW > 750 ? 750 / imgW : 1}}"></canvas>
 <!-- <canvas canvas-id="myCanvas" class="myCanvas" style="width:{{imgW}}rpx;height:{{imgH}}rpx;margin:0 auto;zoom:{imgW > 750 ? 750 / imgW : 1}}"></canvas> -->
 <button wx:if="{{src}}" type="primary" bindtap="continuePhoto">继续拍照</button>
 <button wx:else type="primary" bindtap="takePhoto">拍照识别</button>
